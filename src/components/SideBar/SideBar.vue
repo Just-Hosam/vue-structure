@@ -1,22 +1,76 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AvatarIcon from "@/components/icons/AvatarIcon.vue";
+import CogIcon from "@/components/icons/CogIcon.vue";
+import MenuIcon from "@/components/icons/MenuIcon.vue";
+import { RouterLink, useRoute } from "vue-router";
+
+const route = useRoute();
+</script>
 
 <template>
-  <nav class="sidebar__nav">
-    <ul class="sidebar__list">
-      <li class="sidebar__item">
-        <router-link to="/products" class="sidebar__link"> Products </router-link>
-      </li>
-      <li class="sidebar__item">
-        <router-link to="/orders" class="sidebar__link"> Orders </router-link>
-      </li>
-      <li class="sidebar__item">
-        <router-link to="/customers" class="sidebar__link"> Customers </router-link>
-      </li>
-      <li class="sidebar__item">
-        <router-link to="/analytics" class="sidebar__link"> Analytics </router-link>
-      </li>
+  <nav class="nav">
+    <ul class="nav__list">
+      <RouterLink
+        to="/products"
+        class="nav__link"
+        :class="{ 'nav__link--active': route.path === '/products' }"
+      >
+        <MenuIcon :size="26" />
+        <span class="nav__name">Products</span>
+      </RouterLink>
+      <RouterLink
+        to="/settings"
+        class="nav__link"
+        :class="{ 'nav__link--active': route.path === '/settings' }"
+      >
+        <CogIcon :size="26" />
+        <span class="nav__name">Settings</span>
+      </RouterLink>
+      <RouterLink
+        to="/profile"
+        class="nav__link"
+        :class="{ 'nav__link--active': route.path === '/profile' }"
+      >
+        <AvatarIcon :size="26" />
+        <span class="nav__name">Profile</span>
+      </RouterLink>
     </ul>
   </nav>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.nav {
+  width: 100%;
+  height: 100vh;
+
+  &__list {
+    padding-top: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 8px;
+    font-size: 18px;
+    border-radius: 0 10px 10px 0;
+
+    color: var(--color-text-brand);
+    border-left: 5px solid transparent;
+
+    &:hover {
+      background-color: var(--color-background-secondary);
+    }
+
+    &--active {
+      background-color: var(--color-background-secondary);
+      border-left: 5px solid var(--color-brand-primary);
+    }
+  }
+}
+</style>

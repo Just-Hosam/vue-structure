@@ -9,7 +9,7 @@ const route = useRoute();
   <nav class="nav">
     <ul class="nav__list">
       <RouterLink
-        to="/products"
+        to="/"
         class="nav__link"
         :class="{ 'nav__link--active': route.path === '/products' || route.path === '/' }"
       >

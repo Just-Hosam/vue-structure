@@ -4,19 +4,19 @@ import { defineProps } from "vue";
 defineProps({
   color: {
     type: String,
-    default: "#5D5FEF",
+    default: "var(--color-text-secondary)",
   },
   size: {
     type: Number,
-    default: 24,
+    default: 20,
   },
   strokeWidth: {
     type: Number,
-    default: 2,
+    default: 1.5,
   },
   fill: {
     type: String,
-    default: "#5D5FEF",
+    default: "var(--color-text-secondary)",
   },
 });
 </script>

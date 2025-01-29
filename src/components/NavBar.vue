@@ -4,9 +4,16 @@ import AvatarIcon from "@/components/icons/AvatarIcon.vue";
 import BellIcon from "@/components/icons/BellIcon.vue";
 import StormButton from "@/components/ui/StormButton.vue";
 import { useAppBreakpoints } from "@/composables/useAppBreakpoints";
+import NotificationsModal from "@/features/notifications/components/NotificationsModal.vue";
+import { useModalStore } from "@/stores/useModalStore";
 import { RouterLink } from "vue-router";
 
 const { isMobile } = useAppBreakpoints();
+const modal = useModalStore();
+
+const openNotificationsModal = () => {
+  modal.openModal(NotificationsModal, {});
+};
 </script>
 
 <template>
@@ -21,11 +28,9 @@ const { isMobile } = useAppBreakpoints();
     </RouterLink>
 
     <div :class="['icons', isMobile && 'icons--mobile']">
-      <RouterLink to="/products">
-        <StormButton variant="icon">
-          <BellIcon />
-        </StormButton>
-      </RouterLink>
+      <StormButton @click="openNotificationsModal" variant="icon">
+        <BellIcon />
+      </StormButton>
       <RouterLink to="/products">
         <StormButton variant="icon">
           <AvatarIcon />

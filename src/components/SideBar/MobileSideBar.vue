@@ -41,7 +41,7 @@ const toggleSidebar = () => {
   height: 100%;
   width: 100%;
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
 
   &--open {
     transform: translate(0);
@@ -50,7 +50,7 @@ const toggleSidebar = () => {
 
 .sidebar {
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 
   &--open {
     opacity: 1;

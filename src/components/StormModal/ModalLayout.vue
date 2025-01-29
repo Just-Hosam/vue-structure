@@ -50,6 +50,7 @@ defineProps<{
 
 .content {
   padding: 0 40px;
+  flex: 1;
 }
 
 .footer {

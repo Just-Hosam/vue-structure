@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon.vue";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon.vue";
+import SearchIcon from "@/components/icons/SearchIcon.vue";
 import SortIcon from "@/components/icons/SortIcon.vue";
 import StormPill from "@/components/ui/StormPill.vue";
 import StormTable from "@/components/ui/StormTable/StormTable.vue";
@@ -13,14 +14,20 @@ import { useModalStore } from "@/stores/useModalStore";
 import { onMounted, ref } from "vue";
 import type { Product } from "../classes/product";
 import ProductModal from "../components/ProductModal.vue";
+import { useAppBreakpoints } from "@/composables/useAppBreakpoints";
+import StormInput from "@/components/ui/StormInput.vue";
+import StormButton from "@/components/ui/StormButton.vue";
 
 const products = ref<Product[]>([]);
+const queryCount = ref(0);
+const productsCount = ref(0);
 const searchQuery = ref("");
 const sortState = ref({
   field: "" as "quantity" | "product" | "total",
   order: "" as "asc" | "desc",
 });
 const loading = ref(false);
+const { isMobile } = useAppBreakpoints();
 const modal = useModalStore();
 
 function openProductModal(product: Product) {
@@ -56,16 +63,20 @@ async function getProducts(params?: {
   const response = await fetch(url);
   const data = await response.json();
 
+  queryCount.value = data.queryCount;
+  productsCount.value = data.total;
   return data.data;
 }
 
 async function fetchProducts() {
+  if (loading.value) return;
   loading.value = true;
   products.value = await getProducts();
   loading.value = false;
 }
 
 const searchProducts = async () => {
+  if (loading.value) return;
   loading.value = true;
   products.value = await getProducts({
     search: searchQuery.value,
@@ -76,6 +87,7 @@ const searchProducts = async () => {
 };
 
 const toggleSort = async (field: "total" | "quantity" | "product") => {
+  if (loading.value) return;
   loading.value = true;
   if (sortState.value.field === field) {
     sortState.value.order = sortState.value.order === "asc" ? "desc" : "asc";
@@ -100,14 +112,57 @@ const statusColors = {
 </script>
 
 <template>
-  <div class="title">
-    Products <span class="subtext">11 of {{ products.length }} results</span>
+  <div class="header">
+    <div class="header__title">
+      Products
+      <span class="header__subtext">
+        <span v-if="queryCount !== productsCount">{{ queryCount }} of </span>
+        {{ productsCount }} results
+      </span>
+    </div>
+    <div class="header__search">
+      <StormInput
+        class="header__input"
+        v-model="searchQuery"
+        :updateValue="searchProducts"
+        placeholder="Search"
+        :icon="SearchIcon"
+      />
+      <StormButton type="submit" @click="searchProducts" size="large"> Search </StormButton>
+    </div>
   </div>
-  <div class="search">
-    <input type="text" v-model="searchQuery" placeholder="Search" />
-    <button type="submit" @click="searchProducts">Search</button>
-  </div>
-  <StormTable class="table">
+  <StormTable v-if="isMobile" class="table">
+    <TableHeader>
+      <TableRow :class="['table__row', { 'table__row--mobile': isMobile }]">
+        <TableHead class="table__cell--clickable" @click="toggleSort('product')">
+          Product
+          <ArrowDownIcon
+            :size="19"
+            v-if="sortState.field === 'product' && sortState.order === 'desc'"
+          />
+          <ArrowUpIcon
+            :size="19"
+            v-else-if="sortState.field === 'product' && sortState.order === 'asc'"
+          />
+          <SortIcon color="var(--color-text-secondary)" :size="19" v-else />
+        </TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody v-if="loading">
+      <div class="table__loading">Loading...</div>
+    </TableBody>
+    <TableBody v-else>
+      <TableRow
+        v-for="row of products"
+        :key="row.id"
+        :class="['table__row', 'table__row--clickable', { 'table__row--mobile': isMobile }]"
+        @click="openProductModal(row)"
+      >
+        <TableCell>{{ row.product ?? "-" }}</TableCell>
+      </TableRow>
+    </TableBody>
+  </StormTable>
+  <StormTable v-else class="table">
     <TableHeader>
       <TableRow class="table__row">
         <TableHead>ID</TableHead>
@@ -115,45 +170,42 @@ const statusColors = {
         <TableHead class="table__cell--clickable" @click="toggleSort('quantity')">
           Quantity
           <ArrowDownIcon
-            :size="20"
-            v-if="sortState.field === 'quantity' && sortState.order === 'asc'"
+            :size="19"
+            v-if="sortState.field === 'quantity' && sortState.order === 'desc'"
           />
           <ArrowUpIcon
-            :size="20"
-            v-else-if="sortState.field === 'quantity' && sortState.order === 'desc'"
+            :size="19"
+            v-else-if="sortState.field === 'quantity' && sortState.order === 'asc'"
           />
-          <SortIcon color="var(--color-text-secondary)" :size="20" v-else />
+          <SortIcon color="var(--color-text-secondary)" :size="19" v-else />
         </TableHead>
         <TableHead class="table__cell--clickable" @click="toggleSort('product')">
           Product
           <ArrowDownIcon
-            :size="20"
-            v-if="sortState.field === 'product' && sortState.order === 'asc'"
+            :size="19"
+            v-if="sortState.field === 'product' && sortState.order === 'desc'"
           />
           <ArrowUpIcon
-            :size="20"
-            v-else-if="sortState.field === 'product' && sortState.order === 'desc'"
+            :size="19"
+            v-else-if="sortState.field === 'product' && sortState.order === 'asc'"
           />
-          <SortIcon color="var(--color-text-secondary)" :size="20" v-else />
+          <SortIcon color="var(--color-text-secondary)" :size="19" v-else />
         </TableHead>
         <TableHead @click="toggleSort('total')" class="table__last-column table__cell--clickable">
           Price
           <ArrowDownIcon
-            :size="20"
-            v-if="sortState.field === 'total' && sortState.order === 'asc'"
+            :size="19"
+            v-if="sortState.field === 'total' && sortState.order === 'desc'"
           />
           <ArrowUpIcon
-            :size="20"
-            v-else-if="sortState.field === 'total' && sortState.order === 'desc'"
+            :size="19"
+            v-else-if="sortState.field === 'total' && sortState.order === 'asc'"
           />
-          <SortIcon color="var(--color-text-secondary)" :size="20" v-else />
+          <SortIcon color="var(--color-text-secondary)" :size="19" v-else />
         </TableHead>
       </TableRow>
     </TableHeader>
     <TableBody v-if="loading">
-      <!-- <TableRow class="table__row">
-        <TableCell></TableCell>
-      </TableRow> -->
       <div class="table__loading">Loading...</div>
     </TableBody>
     <TableBody v-else>
@@ -178,18 +230,32 @@ const statusColors = {
 </template>
 
 <style scoped lang="scss">
-.title {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+  flex-wrap: wrap;
 
-.subtext {
-  font-size: 12px;
-  line-height: 16px;
-  margin-left: 8px;
-  color: var(--color-text-secondary);
+  &__title {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 700;
+    align-self: flex-end;
+  }
+
+  &__subtext {
+    font-size: 12px;
+    line-height: 16px;
+    margin-left: 8px;
+    color: var(--color-text-secondary);
+  }
+
+  &__search {
+    display: flex;
+    gap: 8px;
+  }
 }
 
 .table {
@@ -198,6 +264,10 @@ const statusColors = {
 
   &__row {
     grid-template-columns: 10% 15% 15% auto 15%;
+
+    &--mobile {
+      grid-template-columns: auto;
+    }
 
     &--clickable {
       &:hover {
@@ -215,7 +285,6 @@ const statusColors = {
     display: flex;
     justify-content: center;
     align-items: center;
-    // height: 100%;
     margin-top: 50px;
   }
 

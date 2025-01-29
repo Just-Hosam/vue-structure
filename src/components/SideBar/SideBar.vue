@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AvatarIcon from "@/components/icons/AvatarIcon.vue";
-import CogIcon from "@/components/icons/CogIcon.vue";
 import MenuIcon from "@/components/icons/MenuIcon.vue";
 import { RouterLink, useRoute } from "vue-router";
 
@@ -13,7 +11,7 @@ const route = useRoute();
       <RouterLink
         to="/products"
         class="nav__link"
-        :class="{ 'nav__link--active': route.path === '/products' }"
+        :class="{ 'nav__link--active': route.path === '/products' || route.path === '/' }"
       >
         <MenuIcon :size="26" />
         <span class="nav__name">Products</span>

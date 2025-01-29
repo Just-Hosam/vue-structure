@@ -17,7 +17,7 @@ import { useModalStore } from "@/stores/useModalStore";
 import { onMounted, ref } from "vue";
 import type { Product } from "../classes/product";
 import ProductModal from "../components/ProductModal.vue";
-import { ProductsService } from "../service/ProductsService";
+import { useProductsStore } from "../stores/ProductsStore";
 
 const products = ref<Product[]>([]);
 const queryCount = ref(0);
@@ -30,7 +30,7 @@ const sortState = ref({
 const loading = ref(false);
 const { isMobile } = useAppBreakpoints();
 const modal = useModalStore();
-const service = new ProductsService();
+const store = useProductsStore();
 
 function openProductModal(product: Product) {
   modal.openModal(ProductModal, { product });
@@ -43,23 +43,23 @@ onMounted(async () => {
 async function fetchProducts() {
   if (loading.value) return;
   loading.value = true;
-  const data = await service.getProducts();
-  products.value = data.data;
-  queryCount.value = data.queryCount;
-  productsCount.value = data.total;
+  await store.fetchProducts();
+  products.value = store.data.data;
+  queryCount.value = store.data.queryCount;
+  productsCount.value = store.data.total;
   loading.value = false;
 }
 
 const searchProducts = async () => {
   if (loading.value) return;
   loading.value = true;
-  const data = await service.getProducts({
+  await store.fetchProducts({
     search: searchQuery.value,
     sortField: sortState.value.field,
     sortOrder: sortState.value.order,
   });
-  products.value = data.data;
-  queryCount.value = data.queryCount;
+  products.value = store.data.data;
+  queryCount.value = store.data.queryCount;
   loading.value = false;
 };
 
@@ -72,13 +72,13 @@ const toggleSort = async (field: "total" | "quantity" | "product") => {
     sortState.value.field = field;
     sortState.value.order = "asc";
   }
-  const data = await service.getProducts({
+  await store.fetchProducts({
     sortField: sortState.value.field,
     sortOrder: sortState.value.order,
     search: searchQuery.value,
   });
-  products.value = data.data;
-  queryCount.value = data.queryCount;
+  products.value = store.data.data;
+  queryCount.value = store.data.queryCount;
   loading.value = false;
 };
 

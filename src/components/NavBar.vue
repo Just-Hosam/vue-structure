@@ -2,7 +2,7 @@
 import StormLogo from "@/assets/StormLogo.svg";
 import AvatarIcon from "@/components/icons/AvatarIcon.vue";
 import BellIcon from "@/components/icons/BellIcon.vue";
-import MenuIcon from "@/components/icons/MenuIcon.vue";
+import StormButton from "@/components/ui/StormButton.vue";
 import { useAppBreakpoints } from "@/composables/useAppBreakpoints";
 import { RouterLink } from "vue-router";
 
@@ -21,16 +21,17 @@ const { isMobile } = useAppBreakpoints();
     </RouterLink>
 
     <div :class="['icons', isMobile && 'icons--mobile']">
-      <RouterLink class="icons__link" to="/products">
-        <BellIcon class="icons__icon" :size="24" />
+      <RouterLink to="/products">
+        <StormButton variant="icon">
+          <BellIcon />
+        </StormButton>
       </RouterLink>
-      <RouterLink class="icons__link" to="/products">
-        <AvatarIcon class="icons__icon" :size="24" />
-        <span v-if="!isMobile">Adriana Arias</span>
+      <RouterLink to="/products">
+        <StormButton variant="icon">
+          <AvatarIcon />
+          <span class="icons__name" v-if="!isMobile">Adriana Arias</span>
+        </StormButton>
       </RouterLink>
-      <!-- <RouterLink v-if="isMobile" class="icons__link" to="/products">
-        <MenuIcon class="icons__icon" :size="24" :stroke-width="0.5" />
-      </RouterLink> -->
     </div>
   </nav>
 </template>
@@ -78,15 +79,12 @@ const { isMobile } = useAppBreakpoints();
     align-items: center;
   }
 
-  &__link {
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    gap: 8px;
+  &__name {
+    margin-left: 8px;
+    color: var(--color-text-brand);
+    font-family: "Nunito Sans";
     font-size: 14px;
     line-height: 20px;
-    color: #5e5ced;
-    font-family: "Nunito Sans";
   }
 }
 </style>

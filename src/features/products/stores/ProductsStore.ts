@@ -3,300 +3,58 @@ import { ref } from "vue";
 import type { Product } from "../classes/product";
 import { ProductsService } from "../service/ProductsService";
 
-const MOCK_DATA: Product[] = [
-  {
-    id: 1,
-    status: "Active",
-    quantity: 10,
-    product: "Product 1",
-    total: 10.0,
-    serial: "se",
-    description: "Description for Product 1",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 2,
-    status: "Inactive",
-    quantity: 20,
-    product: "Product 2",
-    total: 20.0,
-    serial: "se",
-    description: "Description for Product 2",
-  },
-  {
-    id: 3,
-    status: "Pending",
-    quantity: 30,
-    product: "Product 3",
-    total: 30.0,
-    serial: "se",
-    description: "Description for Product 3",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 4,
-    status: "Blocked",
-    quantity: 40,
-    product: "Product 4",
-    total: 40.0,
-    serial: "se",
-    description: "Description for Product 4",
-  },
-  {
-    id: 5,
-    status: "Active",
-    quantity: 50,
-    product: "Product 5",
-    total: 50.0,
-    serial: "se",
-    description: "Description for Product 5",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 6,
-    status: "Inactive",
-    quantity: 60,
-    product: "Product 6",
-    total: 60.0,
-    serial: "se",
-    description: "Description for Product 6",
-  },
-  {
-    id: 7,
-    status: "Pending",
-    quantity: 70,
-    product: "Product 7",
-    total: 70.0,
-    serial: "se",
-    description: "Description for Product 7",
-  },
-  {
-    id: 8,
-    status: "Blocked",
-    quantity: 80,
-    product: "Product 8",
-    total: 80.0,
-    serial: "se",
-    description: "Description for Product 8",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 9,
-    status: "Active",
-    quantity: 90,
-    product: "Product 9",
-    total: 90.0,
-    serial: "se",
-    description: "Description for Product 9",
-  },
-  {
-    id: 10,
-    status: "Inactive",
-    quantity: 100,
-    product: "Product 10",
-    total: 100.0,
-    serial: "se",
-    description: "Description for Product 10",
-  },
-  {
-    id: 11,
-    status: "Pending",
-    quantity: 110,
-    product: "Product 11",
-    total: 110.0,
-    serial: "se",
-    description: "Description for Product 11",
-  },
-  {
-    id: 12,
-    status: "Blocked",
-    quantity: 120,
-    product: "Product 12",
-    total: 120.0,
-    serial: "se",
-    description: "Description for Product 12",
-  },
-  {
-    id: 13,
-    status: "Active",
-    quantity: 130,
-    product: "Product 13",
-    total: 130.0,
-    serial: "se",
-    description: "Description for Product 13",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 14,
-    status: "Inactive",
-    quantity: 140,
-    product: "Product 14",
-    total: 140.0,
-    serial: "se",
-    description: "Description for Product 14",
-  },
-  {
-    id: 15,
-    status: "Pending",
-    quantity: 150,
-    product: "Product 15",
-    total: 150.0,
-    serial: "se",
-    description: "Description for Product 15",
-  },
-  {
-    id: 16,
-    status: "Blocked",
-    quantity: 160,
-    product: "Product 16",
-    total: 160.0,
-    serial: "se",
-    description: "Description for Product 16",
-  },
-  {
-    id: 17,
-    status: "Active",
-    quantity: 170,
-    product: "Product 17",
-    total: 170.0,
-    serial: "se",
-    description: "Description for Product 17",
-  },
-  {
-    id: 18,
-    status: "Inactive",
-    quantity: 180,
-    product: "Product 18",
-    total: 180.0,
-    serial: "se",
-    description: "Description for Product 18",
-  },
-  {
-    id: 19,
-    status: "Pending",
-    quantity: 190,
-    product: "Product 19",
-    total: 190.0,
-    serial: "se",
-    description: "Description for Product 19",
-  },
-  {
-    id: 20,
-    status: "Blocked",
-    quantity: 200,
-    product: "Product 20",
-    total: 200.0,
-    serial: "se",
-    description: "Description for Product 20",
-  },
-  {
-    id: 21,
-    status: "Active",
-    quantity: 210,
-    product: "Product 21",
-    total: 210.0,
-    serial: "se",
-    description: "Description for Product 21",
-  },
-  {
-    id: 22,
-    status: "Inactive",
-    quantity: 220,
-    product: "Product 22",
-    total: 220.0,
-    serial: "se",
-    description: "Description for Product 22",
-  },
-  {
-    id: 23,
-    status: "Pending",
-    quantity: 230,
-    product: "Product 23",
-    total: 230.0,
-    serial: "se",
-    description: "Description for Product 23",
-  },
-  {
-    id: 24,
-    status: "Blocked",
-    quantity: 240,
-    product: "Product 24",
-    total: 240.0,
-    serial: "se",
-    description: "Description for Product 24",
-  },
-  {
-    id: 25,
-    status: "Active",
-    quantity: 250,
-    product: "Product 25",
-    total: 250.0,
-    serial: "se",
-    description: "Description for Product 25",
-  },
-  {
-    id: 26,
-    status: "Inactive",
-    quantity: 260,
-    product: "Product 26",
-    total: 260.0,
-    serial: "se",
-    description: "Description for Product 26",
-  },
-  {
-    id: 27,
-    status: "Pending",
-    quantity: 270,
-    product: "Product 27",
-    total: 270.0,
-    serial: "se",
-    description: "Description for Product 27",
-  },
-  {
-    id: 28,
-    status: "Blocked",
-    quantity: 280,
-    product: "Product 28",
-    total: 280.0,
-    serial: "se",
-    description: "Description for Product 28",
-  },
-  {
-    id: 29,
-    status: "Active",
-    quantity: 290,
-    product: "Product 29",
-    total: 290.0,
-    serial: "se",
-    description: "Description for Product 29",
-  },
-  {
-    id: 30,
-    status: "Inactive",
-    quantity: 300,
-    product: "Product 30",
-    total: 300.0,
-    serial: "se",
-    description: "Description for Product 30",
-  },
-];
-
 export const useProductsStore = defineStore("products", () => {
   const products = ref<Product[]>([]);
+  const searchQuery = ref("");
+  const sortState = ref({
+    field: "" as "total" | "quantity" | "product",
+    order: "asc" as "asc" | "desc",
+  });
   const productsService = new ProductsService();
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (params?: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    sortField?: "total" | "quantity" | "product";
+    sortOrder?: "asc" | "desc";
+  }) => {
     try {
-      // products.value = await productsService.getProducts();
-      products.value = MOCK_DATA;
-      // console.log("products :>> ", products);
+      const fetchedProducts = await productsService.getProducts(params);
+      products.value = [...fetchedProducts];
     } catch (error) {
       console.error("Failed to fetch products:", error);
     }
   };
 
+  const toggleSort = (field: "total" | "quantity" | "product") => {
+    if (sortState.value.field === field) {
+      sortState.value.order = sortState.value.order === "asc" ? "desc" : "asc";
+    } else {
+      sortState.value.field = field;
+      sortState.value.order = "asc";
+    }
+    fetchProducts({
+      sortField: sortState.value.field,
+      sortOrder: sortState.value.order,
+      search: searchQuery.value,
+    });
+  };
+
+  const searchProducts = () => {
+    fetchProducts({
+      search: searchQuery.value,
+      sortField: sortState.value.field,
+      sortOrder: sortState.value.order,
+    });
+  };
+
   return {
     products,
     fetchProducts,
+    searchQuery,
+    sortState,
+    toggleSort,
+    searchProducts,
   };
 });

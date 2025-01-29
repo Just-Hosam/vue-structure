@@ -3,6 +3,8 @@ import ArrowDownIcon from "@/components/icons/ArrowDownIcon.vue";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon.vue";
 import SearchIcon from "@/components/icons/SearchIcon.vue";
 import SortIcon from "@/components/icons/SortIcon.vue";
+import StormButton from "@/components/ui/StormButton.vue";
+import StormInput from "@/components/ui/StormInput.vue";
 import StormPill from "@/components/ui/StormPill.vue";
 import StormTable from "@/components/ui/StormTable/StormTable.vue";
 import TableBody from "@/components/ui/StormTable/TableBody.vue";
@@ -10,13 +12,11 @@ import TableCell from "@/components/ui/StormTable/TableCell.vue";
 import TableHead from "@/components/ui/StormTable/TableHead.vue";
 import TableHeader from "@/components/ui/StormTable/TableHeader.vue";
 import TableRow from "@/components/ui/StormTable/TableRow.vue";
+import { useAppBreakpoints } from "@/composables/useAppBreakpoints";
 import { useModalStore } from "@/stores/useModalStore";
 import { onMounted, ref } from "vue";
 import type { Product } from "../classes/product";
 import ProductModal from "../components/ProductModal.vue";
-import { useAppBreakpoints } from "@/composables/useAppBreakpoints";
-import StormInput from "@/components/ui/StormInput.vue";
-import StormButton from "@/components/ui/StormButton.vue";
 
 const products = ref<Product[]>([]);
 const queryCount = ref(0);
@@ -175,38 +175,38 @@ const statusColors = {
         <TableHead class="table__cell--clickable" @click="toggleSort('quantity')">
           Quantity
           <ArrowDownIcon
-            :size="19"
+            :size="18"
             v-if="sortState.field === 'quantity' && sortState.order === 'desc'"
           />
           <ArrowUpIcon
-            :size="19"
+            :size="18"
             v-else-if="sortState.field === 'quantity' && sortState.order === 'asc'"
           />
-          <SortIcon color="var(--color-text-secondary)" :size="19" v-else />
+          <SortIcon color="var(--color-text-secondary)" :size="18" v-else />
         </TableHead>
         <TableHead class="table__cell--clickable" @click="toggleSort('product')">
           Product
           <ArrowDownIcon
-            :size="19"
+            :size="18"
             v-if="sortState.field === 'product' && sortState.order === 'desc'"
           />
           <ArrowUpIcon
-            :size="19"
+            :size="18"
             v-else-if="sortState.field === 'product' && sortState.order === 'asc'"
           />
-          <SortIcon color="var(--color-text-secondary)" :size="19" v-else />
+          <SortIcon color="var(--color-text-secondary)" :size="18" v-else />
         </TableHead>
         <TableHead @click="toggleSort('total')" class="table__last-column table__cell--clickable">
           Price
           <ArrowDownIcon
-            :size="19"
+            :size="18"
             v-if="sortState.field === 'total' && sortState.order === 'desc'"
           />
           <ArrowUpIcon
-            :size="19"
+            :size="18"
             v-else-if="sortState.field === 'total' && sortState.order === 'asc'"
           />
-          <SortIcon color="var(--color-text-secondary)" :size="19" v-else />
+          <SortIcon color="var(--color-text-secondary)" :size="18" v-else />
         </TableHead>
       </TableRow>
     </TableHeader>
@@ -231,7 +231,7 @@ const statusColors = {
           <div class="product__name">{{ row.product ?? "-" }}</div>
           <div class="product__subtext">{{ row.serial ?? "-" }}</div>
         </TableCell>
-        <TableCell class="table__last-column">{{ row.total ?? "-" }}</TableCell>
+        <TableCell class="table__last-column">${{ row.total ?? "-" }}</TableCell>
       </TableRow>
     </TableBody>
   </StormTable>

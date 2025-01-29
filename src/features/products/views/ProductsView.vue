@@ -1,19 +1,25 @@
 <script setup lang="ts">
+import StormPill from "@/components/ui/StormPill.vue";
 import StormTable from "@/components/ui/StormTable/StormTable.vue";
 import TableBody from "@/components/ui/StormTable/TableBody.vue";
 import TableCell from "@/components/ui/StormTable/TableCell.vue";
 import TableHead from "@/components/ui/StormTable/TableHead.vue";
 import TableHeader from "@/components/ui/StormTable/TableHeader.vue";
 import TableRow from "@/components/ui/StormTable/TableRow.vue";
-import StormPill from "@/components/ui/StormPill.vue";
-import { useProductsStore } from "../store/ProductsStore";
+import { useModalStore } from "@/stores/useModalStore";
 import { onMounted } from "vue";
+import type { Product } from "../classes/product";
+import ProductModal from "../components/ProductModal.vue";
+import { useProductsStore } from "../stores/ProductsStore";
 
 const { products, fetchProducts } = useProductsStore();
-// const loading = ref(false);
+const modal = useModalStore();
+
+function openProductModal(product: Product) {
+  modal.openModal(ProductModal, { product });
+}
 
 onMounted(() => {
-  // loading.value = true;
   fetchProducts();
 });
 
@@ -26,7 +32,9 @@ const statusColors = {
 </script>
 
 <template>
-  <div class="title">Products <span class="subtext">11 of 64 results</span></div>
+  <div class="title">
+    Products <span class="subtext">11 of {{ products.length }} results</span>
+  </div>
   <StormTable class="table">
     <TableHeader>
       <TableRow class="table__row">
@@ -38,7 +46,12 @@ const statusColors = {
       </TableRow>
     </TableHeader>
     <TableBody>
-      <TableRow v-for="row of products" :key="row.id" class="table__row table__row--clickable">
+      <TableRow
+        v-for="row of products"
+        :key="row.id"
+        class="table__row table__row--clickable"
+        @click="openProductModal(row)"
+      >
         <TableCell>{{ row.id ?? "-" }}</TableCell>
         <TableCell>
           <StormPill class="table__pill" :backgroundColor="statusColors?.[row?.status]">{{
@@ -47,7 +60,7 @@ const statusColors = {
         </TableCell>
         <TableCell>{{ row.quantity ?? "-" }}</TableCell>
         <TableCell>{{ row.product ?? "-" }}</TableCell>
-        <TableCell class="table__last-column">{{ row.price ?? "-" }}</TableCell>
+        <TableCell class="table__last-column">{{ row.total ?? "-" }}</TableCell>
       </TableRow>
     </TableBody>
   </StormTable>

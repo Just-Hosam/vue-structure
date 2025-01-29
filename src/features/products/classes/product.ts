@@ -4,6 +4,9 @@ export interface Product {
   id: number;
   quantity: number;
   status: Status;
+  description: string;
   product: string;
-  price: string;
+  total: number;
+  serial: string;
+  image?: string;
 }

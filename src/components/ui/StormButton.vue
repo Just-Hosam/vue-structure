@@ -73,17 +73,17 @@ defineProps({
 
   &--small {
     padding: 4px 8px;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   &--medium {
     padding: 8px 16px;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   &--large {
     padding: 12px 24px;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   &--icon {

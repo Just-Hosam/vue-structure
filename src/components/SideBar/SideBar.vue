@@ -44,7 +44,7 @@ const route = useRoute();
   height: 100vh;
 
   &__list {
-    padding-top: 150px;
+    padding-top: 175px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -55,13 +55,13 @@ const route = useRoute();
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 12px 24px;
+    padding: 16px 32px;
     gap: 8px;
-    font-size: 18px;
-    border-radius: 0 10px 10px 0;
+    font-size: 16px;
+    border-radius: 0 2px 2px 0;
 
     color: var(--color-text-brand);
-    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
 
     &:hover {
       background-color: var(--color-background-secondary);
@@ -69,7 +69,7 @@ const route = useRoute();
 
     &--active {
       background-color: var(--color-background-secondary);
-      border-left: 5px solid var(--color-brand-primary);
+      border-right: 5px solid var(--color-brand-primary);
     }
   }
 }

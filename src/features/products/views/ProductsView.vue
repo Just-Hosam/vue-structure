@@ -158,7 +158,12 @@ const statusColors = {
         :class="['table__row', 'table__row--clickable', { 'table__row--mobile': isMobile }]"
         @click="openProductModal(row)"
       >
-        <TableCell>{{ row.product ?? "-" }}</TableCell>
+        <TableCell class="product">
+          <div class="product__name">{{ row.product ?? "-" }}</div>
+          <div class="product__subtext">
+            {{ row.serial ?? "-" }} - Qty: {{ row.quantity ?? "-" }}
+          </div>
+        </TableCell>
       </TableRow>
     </TableBody>
   </StormTable>
@@ -222,7 +227,10 @@ const statusColors = {
           }}</StormPill>
         </TableCell>
         <TableCell>{{ row.quantity ?? "-" }}</TableCell>
-        <TableCell>{{ row.product ?? "-" }}</TableCell>
+        <TableCell class="product">
+          <div class="product__name">{{ row.product ?? "-" }}</div>
+          <div class="product__subtext">{{ row.serial ?? "-" }}</div>
+        </TableCell>
         <TableCell class="table__last-column">{{ row.total ?? "-" }}</TableCell>
       </TableRow>
     </TableBody>
@@ -308,6 +316,18 @@ const statusColors = {
   &__last-column {
     border-left: 1px solid var(--color-item-border);
     justify-content: flex-end;
+  }
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &__subtext {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-text-secondary);
   }
 }
 </style>

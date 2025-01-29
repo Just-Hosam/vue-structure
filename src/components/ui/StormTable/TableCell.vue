@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
 
-  &:last-child {
+  &:last-child:not(:first-child) {
     justify-content: flex-end;
     text-align: right;
   }

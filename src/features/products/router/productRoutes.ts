@@ -1,7 +1,9 @@
+import ProductsView from "../views/ProductsView.vue";
+
 export default [
   {
     path: "/products",
     name: "products",
-    component: () => import("../views/ProductsView.vue"),
+    component: ProductsView,
   },
 ];

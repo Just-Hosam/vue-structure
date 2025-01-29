@@ -45,7 +45,7 @@ async function getProducts(params?: {
   sortField?: "total" | "quantity" | "product";
   sortOrder?: "asc" | "desc";
 }): Promise<Product[]> {
-  let url = "http://localhost:3000/products";
+  let url = "https://vue-api-sigma.vercel.app/products";
   const queryParams = new URLSearchParams();
 
   if (params) {

@@ -1,12 +1,15 @@
+import ProfileView from "../views/ProfileView.vue";
+import SettingsView from "../views/SettingsView.vue";
+
 export default [
   {
     path: "/settings",
     name: "settings",
-    component: () => import("../views/SettingsView.vue"),
+    component: SettingsView,
   },
   {
     path: "/profile",
     name: "profile",
-    component: () => import("../views/ProfileView.vue"),
+    component: ProfileView,
   },
 ];

@@ -1,3 +1,1 @@
-<script setup lang="ts"></script>
-
-<template>Settings View</template>
+<template>SETTINGS VIEW</template>

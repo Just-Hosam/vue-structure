@@ -45,8 +45,8 @@ defineProps({
   font-weight: 500;
 
   &--primary {
-    background-color: #605dec;
-    color: #fff;
+    background-color: var(--color-brand-primary);
+    color: var(--color-item-light);
 
     &:hover {
       background-color: #344293;
@@ -71,16 +71,6 @@ defineProps({
     }
   }
 
-  &--icon {
-    background-color: transparent;
-    color: #333;
-    padding: 8px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   &--small {
     padding: 4px 8px;
     font-size: 14px;
@@ -96,13 +86,27 @@ defineProps({
     font-size: 18px;
   }
 
+  &--icon {
+    background-color: transparent;
+    color: #333;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: #f9f9fb;
+    }
+  }
+
   &__content {
     display: flex;
     align-items: center;
   }
 
   &:active {
-    filter: brightness(0.9);
+    filter: brightness(0.85);
   }
 
   &:focus {

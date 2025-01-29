@@ -17,6 +17,7 @@ import { useModalStore } from "@/stores/useModalStore";
 import { onMounted, ref } from "vue";
 import type { Product } from "../classes/product";
 import ProductModal from "../components/ProductModal.vue";
+import { ProductsService } from "../service/ProductsService";
 
 const products = ref<Product[]>([]);
 const queryCount = ref(0);
@@ -29,6 +30,7 @@ const sortState = ref({
 const loading = ref(false);
 const { isMobile } = useAppBreakpoints();
 const modal = useModalStore();
+const service = new ProductsService();
 
 function openProductModal(product: Product) {
   modal.openModal(ProductModal, { product });
@@ -38,51 +40,26 @@ onMounted(async () => {
   await fetchProducts();
 });
 
-async function getProducts(params?: {
-  page?: number;
-  limit?: number;
-  search?: string;
-  sortField?: "total" | "quantity" | "product";
-  sortOrder?: "asc" | "desc";
-}): Promise<Product[]> {
-  let url = "https://vue-api-sigma.vercel.app/products";
-  const queryParams = new URLSearchParams();
-
-  if (params) {
-    const { page, limit, search, sortField, sortOrder } = params;
-
-    if (page) queryParams.append("page", page.toString());
-    if (limit) queryParams.append("limit", limit.toString());
-    if (search) queryParams.append("search", search);
-    if (sortField) queryParams.append("sortField", sortField);
-    if (sortOrder) queryParams.append("sortOrder", sortOrder);
-  }
-
-  url += `?${queryParams.toString()}`;
-
-  const response = await fetch(url);
-  const data = await response.json();
-
-  queryCount.value = data.queryCount;
-  productsCount.value = data.total;
-  return data.data;
-}
-
 async function fetchProducts() {
   if (loading.value) return;
   loading.value = true;
-  products.value = await getProducts();
+  const data = await service.getProducts();
+  products.value = data.data;
+  queryCount.value = data.queryCount;
+  productsCount.value = data.total;
   loading.value = false;
 }
 
 const searchProducts = async () => {
   if (loading.value) return;
   loading.value = true;
-  products.value = await getProducts({
+  const data = await service.getProducts({
     search: searchQuery.value,
     sortField: sortState.value.field,
     sortOrder: sortState.value.order,
   });
+  products.value = data.data;
+  queryCount.value = data.queryCount;
   loading.value = false;
 };
 
@@ -95,11 +72,13 @@ const toggleSort = async (field: "total" | "quantity" | "product") => {
     sortState.value.field = field;
     sortState.value.order = "asc";
   }
-  products.value = await getProducts({
+  const data = await service.getProducts({
     sortField: sortState.value.field,
     sortOrder: sortState.value.order,
     search: searchQuery.value,
   });
+  products.value = data.data;
+  queryCount.value = data.queryCount;
   loading.value = false;
 };
 

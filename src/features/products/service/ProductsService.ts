@@ -2,7 +2,7 @@ import type { Product } from "../classes/product";
 
 export class ProductsService {
   private endpoints = {
-    products: "http://localhost:3000/products",
+    products: "https://vue-api-sigma.vercel.app/products",
   };
 
   async getProducts(params?: {
@@ -11,7 +11,13 @@ export class ProductsService {
     search?: string;
     sortField?: "total" | "quantity" | "product";
     sortOrder?: "asc" | "desc";
-  }): Promise<Product[]> {
+  }): Promise<{
+    data: Product[];
+    total: number;
+    page: number;
+    limit: number;
+    queryCount: number;
+  }> {
     let url = this.endpoints.products;
     const queryParams = new URLSearchParams();
 
@@ -30,6 +36,6 @@ export class ProductsService {
     const response = await fetch(url);
     const data = await response.json();
 
-    return data.data;
+    return data;
   }
 }

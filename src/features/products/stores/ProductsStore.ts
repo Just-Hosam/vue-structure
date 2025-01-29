@@ -4,7 +4,19 @@ import type { Product } from "../classes/product";
 import { ProductsService } from "../service/ProductsService";
 
 export const useProductsStore = defineStore("products", () => {
-  const products = ref<Product[]>([]);
+  const data = ref<{
+    data: Product[];
+    total: number;
+    page: number;
+    limit: number;
+    queryCount: number;
+  }>({
+    data: [],
+    total: 0,
+    page: 1,
+    limit: 10,
+    queryCount: 0,
+  });
   const searchQuery = ref("");
   const sortState = ref({
     field: "" as "total" | "quantity" | "product",
@@ -20,8 +32,7 @@ export const useProductsStore = defineStore("products", () => {
     sortOrder?: "asc" | "desc";
   }) => {
     try {
-      const fetchedProducts = await productsService.getProducts(params);
-      products.value = [...fetchedProducts];
+      data.value = await productsService.getProducts(params);
     } catch (error) {
       console.error("Failed to fetch products:", error);
     }
@@ -50,7 +61,7 @@ export const useProductsStore = defineStore("products", () => {
   };
 
   return {
-    products,
+    data,
     fetchProducts,
     searchQuery,
     sortState,

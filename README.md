@@ -35,14 +35,6 @@ Follow these steps to set up the project:
    yarn install
    ```
 
-## Environment Variables
-
-Create a `.env` file in the root directory and add the following environment variables:
-
-```
-VITE_BASE_URL=http://localhost:3000
-```
-
 ## Quickstart
 
 To start the development server, run:
@@ -53,7 +45,7 @@ npm run dev
 yarn dev
 ```
 
-Open your browser and navigate to `http://localhost:3000` to see the application running.
+Open your browser and navigate to `http://localhost:5173/` to see the application running.
 
 ## Tips and Troubleshooting
 
@@ -66,14 +58,25 @@ Open your browser and navigate to `http://localhost:3000` to see the application
   yarn install
   ```
 
-- Ensure your environment variables are correctly set in the `.env` file.
+- If you encounter issues with the development server, try clearing the Vite cache:
 
-- For detailed Vue.js documentation, visit the [Vue.js Guide](https://vuejs.org/v2/guide/).
+  ```sh
+  rm -rf node_modules/.vite
+  npm run dev
+  # or
+  yarn dev
+  ```
 
-## Contributing
+- For linting and formatting, use the following commands:
 
-We welcome contributions! Please fork the repository and create a pull request with your changes.
+  ```sh
+  npm run lint
+  # or
+  yarn lint
+  ```
 
-## License
+## Additional Resources
 
-This project is licensed under the MIT License.
+- [Vue.js Documentation](https://vuejs.org/v2/guide/)
+- [Pinia Documentation](https://pinia.vuejs.org/)
+- [Vue Router Documentation](https://router.vuejs.org/)

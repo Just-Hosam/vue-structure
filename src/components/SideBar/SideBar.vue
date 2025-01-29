@@ -18,22 +18,6 @@ const route = useRoute();
         <MenuIcon :size="26" />
         <span class="nav__name">Products</span>
       </RouterLink>
-      <RouterLink
-        to="/settings"
-        class="nav__link"
-        :class="{ 'nav__link--active': route.path === '/settings' }"
-      >
-        <CogIcon :size="26" />
-        <span class="nav__name">Settings</span>
-      </RouterLink>
-      <RouterLink
-        to="/profile"
-        class="nav__link"
-        :class="{ 'nav__link--active': route.path === '/profile' }"
-      >
-        <AvatarIcon :size="26" />
-        <span class="nav__name">Profile</span>
-      </RouterLink>
     </ul>
   </nav>
 </template>

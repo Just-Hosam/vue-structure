@@ -1,6 +1,6 @@
-# Vue Structure Project
+# Storm Project
 
-Welcome to the Vue Structure Project! This guide will help you set up, configure, and start using the project.
+Welcome to the Storm Project! This guide will help you set up, configure, and start using the project.
 
 ## Prerequisites
 

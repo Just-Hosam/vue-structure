@@ -31,7 +31,7 @@ const openNotificationsModal = () => {
       <StormButton @click="openNotificationsModal" variant="icon">
         <BellIcon />
       </StormButton>
-      <RouterLink to="/products">
+      <RouterLink to="/">
         <StormButton variant="icon">
           <AvatarIcon />
           <span class="icons__name" v-if="!isMobile">Adriana Arias</span>

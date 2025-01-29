@@ -7,7 +7,8 @@ export const useModalStore = defineStore("modal", {
     modalProps: {},
   }),
   actions: {
-    openModal(component, props: { [key in string]: any }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    openModal(component: any, props: { [key in string]: any }) {
       this.isOpen = true;
       this.modalComponent = component;
       this.modalProps = props;

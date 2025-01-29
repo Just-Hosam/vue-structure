@@ -131,7 +131,7 @@ const statusColors = {
       <StormButton type="submit" @click="searchProducts" size="large"> Search </StormButton>
     </div>
   </div>
-  <StormTable v-if="isMobile" class="table">
+  <StormTable v-if="isMobile" class="table table--mobile">
     <TableHeader>
       <TableRow :class="['table__row', { 'table__row--mobile': isMobile }]">
         <TableHead class="table__cell--clickable" @click="toggleSort('product')">
@@ -269,13 +269,17 @@ const statusColors = {
 .table {
   width: 100%;
   height: 600px;
+  overflow: hidden;
+
+  &--mobile {
+    height: 400px;
+  }
 
   &__row {
     grid-template-columns: 10% 15% 15% auto 15%;
 
     &--mobile {
       grid-template-columns: auto;
-      height: 400px;
     }
 
     &--clickable {
@@ -301,7 +305,7 @@ const statusColors = {
     &--clickable {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 8px;
 
       &:hover {
         background-color: var(--color-background-secondary);

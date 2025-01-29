@@ -1,61 +1,79 @@
-# vue-structure
+# Vue Structure Project
 
-This template should help get you started developing with Vue 3 in Vite.
+Welcome to the Vue Structure Project! This guide will help you set up, configure, and start using the project.
 
-## Recommended IDE Setup
+## Prerequisites
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Before you begin, ensure you have the following installed:
 
-## Type Support for `.vue` Imports in TS
+- [Node.js](https://nodejs.org/) (version 14 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Dependencies
 
-## Customize configuration
+The project uses the following main dependencies:
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- [Vue.js](https://vuejs.org/)
+- [Pinia](https://pinia.vuejs.org/)
+- [Vue Router](https://router.vuejs.org/)
 
-## Project Setup
+## Installation
 
-```sh
-npm install
+Follow these steps to set up the project:
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/your-username/vue-structure.git
+   cd vue-structure
+   ```
+
+2. Install the dependencies:
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
+
+## Environment Variables
+
+Create a `.env` file in the root directory and add the following environment variables:
+
+```
+VITE_BASE_URL=http://localhost:3000
 ```
 
-### Compile and Hot-Reload for Development
+## Quickstart
+
+To start the development server, run:
 
 ```sh
 npm run dev
+# or
+yarn dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Open your browser and navigate to `http://localhost:3000` to see the application running.
 
-```sh
-npm run build
-```
+## Tips and Troubleshooting
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+- If you encounter issues with dependencies, try deleting `node_modules` and reinstalling:
 
-```sh
-npm run test:unit
-```
+  ```sh
+  rm -rf node_modules
+  npm install
+  # or
+  yarn install
+  ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+- Ensure your environment variables are correctly set in the `.env` file.
 
-```sh
-npm run test:e2e:dev
-```
+- For detailed Vue.js documentation, visit the [Vue.js Guide](https://vuejs.org/v2/guide/).
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
+## Contributing
 
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+We welcome contributions! Please fork the repository and create a pull request with your changes.
 
-```sh
-npm run build
-npm run test:e2e
-```
+## License
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+This project is licensed under the MIT License.

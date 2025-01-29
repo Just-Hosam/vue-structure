@@ -11,16 +11,32 @@ const { isMobile } = useAppBreakpoints();
 <template>
   <WebSideBar v-if="!isMobile" />
   <div class="app">
-    <NavBar />
-    <RouterView />
+    <NavBar class="navbar" />
+    <div class="content">
+      <RouterView />
+    </div>
   </div>
   <MobileSideBar v-if="isMobile" />
 </template>
 
 <style scoped>
 .app {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  padding: 40px;
   flex: 1;
+}
+
+.content {
+  flex: 1;
+  padding: 0 40px 40px;
+  background-color: var(--color-background-primary);
+}
+
+.navbar {
+  padding: 40px;
+  position: sticky;
+  top: 0;
+  background-color: var(--color-background-primary);
 }
 </style>

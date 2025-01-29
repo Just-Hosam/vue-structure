@@ -1,22 +1,27 @@
 :root {
   --color-brand-primary: #605dec;
+  --color-brand-secondary: #344293;
+
+  --color-text-primary: #191919;
+  --color-text-secondary: #808080;
+  --color-text-tertiary: #707070;
+  --color-text-brand: #605dec;
 
   --color-background-primary: #ffffff;
   --color-background-secondary: #f9f9fb;
 
-  --color-text-primary: #191919;
-  --color-text-secondary: #808080;
-
-  --color-text-brand: #605dec;
-
   --color-item-light: #ffffff;
   --color-item-dark: #191919;
-
-  --color-item-border: #ddded1;
+  --color-item-border: #e4e4ef;
   --color-item-disabled: #d9d1c4;
 
   --font-family-primary: "Nunito Sans";
   --font-family-secondary: "Inter";
+
+  --color-extra-green: #ebf6eb;
+  --color-extra-blue: #ededfe;
+  --color-extra-yellow: #fff4e4;
+  --color-extra-red: #fff0f0;
 }
 
 *,

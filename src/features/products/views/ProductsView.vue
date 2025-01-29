@@ -275,6 +275,7 @@ const statusColors = {
 
     &--mobile {
       grid-template-columns: auto;
+      height: 400px;
     }
 
     &--clickable {

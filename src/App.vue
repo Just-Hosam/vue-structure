@@ -4,6 +4,7 @@ import NavBar from "@/components/NavBar.vue";
 import WebSideBar from "@/components/SideBar/WebSideBar.vue";
 import MobileSideBar from "@/components/SideBar/MobileSideBar.vue";
 import { useAppBreakpoints } from "@/composables/useAppBreakpoints";
+import ModalContainer from "@/components/StormModal/ModalContainer.vue";
 
 const { isMobile } = useAppBreakpoints();
 </script>
@@ -17,6 +18,7 @@ const { isMobile } = useAppBreakpoints();
     </div>
   </div>
   <MobileSideBar v-if="isMobile" />
+  <ModalContainer />
 </template>
 
 <style scoped>
